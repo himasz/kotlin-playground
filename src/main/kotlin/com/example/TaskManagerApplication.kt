@@ -1,10 +1,12 @@
-package com.example.taskmanager
+package com.example
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
-class TaskManagerApplication
+@ComponentScan(basePackages = ["com.example"])
+open class TaskManagerApplication
 
 fun main(args: Array<String>) {
     runApplication<TaskManagerApplication>(*args)

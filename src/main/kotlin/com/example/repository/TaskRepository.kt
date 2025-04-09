@@ -1,6 +1,6 @@
-package repository
+package com.example.repository
 
-import entity.Task
+import com.example.entity.Task
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface TaskRepository : JpaRepository<Task, Long>

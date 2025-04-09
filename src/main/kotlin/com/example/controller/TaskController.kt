@@ -1,14 +1,13 @@
-package controller
+package com.example.controller
 
-import dto.TaskDTO
-import entity.Task
+import com.example.dto.TaskDTO
+import com.example.entity.Task
+import com.example.service.TaskService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
-import service.TaskService
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/tasks")
 class TaskController(private val taskService: TaskService) {
 
@@ -16,7 +15,7 @@ class TaskController(private val taskService: TaskService) {
     fun getAllTasks(): List<Task> = taskService.getAllTasks()
 
     @GetMapping("/{id}")
-    fun getTaskById(@PathVariable id: Long): ResponseEntity<Task> {
+    fun getTaskById(@PathVariable id: Long): ResponseEntity<TaskDTO> {
         val task = taskService.getTaskById(id)
         return if (task != null) ResponseEntity.ok(task)
         else ResponseEntity.notFound().build()
