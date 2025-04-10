@@ -25,7 +25,7 @@ class TaskController(private val taskService: TaskService) {
     }
 
     @PostMapping
-    fun createTask(@RequestBody task: CreateTaskDTO): ResponseEntity<Task> {
+    fun createTask(@RequestBody task: CreateTaskDTO): ResponseEntity<TaskDTO> {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task))
     }
 

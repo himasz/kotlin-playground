@@ -20,7 +20,7 @@ class TaskService(private val mapper: TaskMapper, private val taskRepository: Ta
         }
     }
 
-    fun createTask(taskDTO: CreateTaskDTO): Task = taskRepository.save(mapper.toEntity(taskDTO))
+    fun createTask(taskDTO: CreateTaskDTO): TaskDTO = mapper.toDto(taskRepository.save(mapper.toEntity(taskDTO)))
 
     fun updateTask(id: Long, updatedTask: CreateTaskDTO): TaskDTO? {
         val updatedOptional = taskRepository.findById(id).map {
