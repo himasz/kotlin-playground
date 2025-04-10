@@ -57,13 +57,10 @@ class TaskControllerTestIT {
 
         // UPDATE
         val updatedDTO = CreateTaskDTO(title = "Updated Title", description = "Updated Desc", completed = true)
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.APPLICATION_JSON
-        val request = HttpEntity(updatedDTO, headers)
         val updateResponse = restTemplate.exchange(
             "${baseUrl()}/${createdTask.id}",
             HttpMethod.PUT,
-            request,
+            HttpEntity(updatedDTO, getHeaders()),
             TaskDTO::class.java
         )
         assertEquals(HttpStatus.OK, updateResponse.statusCode)
@@ -82,5 +79,11 @@ class TaskControllerTestIT {
         // GET BY ID AFTER DELETE
         val getAfterDelete = restTemplate.getForEntity("${baseUrl()}/${createdTask.id}", String::class.java)
         assertEquals(HttpStatus.NOT_FOUND, getAfterDelete.statusCode)
+    }
+
+    private fun getHeaders(): HttpHeaders {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+        return headers
     }
 }

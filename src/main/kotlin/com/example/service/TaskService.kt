@@ -2,7 +2,6 @@ package com.example.service
 
 import com.example.dto.CreateTaskDTO
 import com.example.dto.TaskDTO
-import com.example.entity.Task
 import com.example.mapper.TaskMapper
 import org.springframework.stereotype.Service
 import com.example.repository.TaskRepository
@@ -20,10 +19,11 @@ class TaskService(private val mapper: TaskMapper, private val taskRepository: Ta
         }
     }
 
-    fun createTask(taskDTO: CreateTaskDTO): TaskDTO = mapper.toDto(taskRepository.save(mapper.toEntity(taskDTO)))
+    fun createTask(createTaskDTO: CreateTaskDTO): TaskDTO =
+        mapper.toDto(taskRepository.save(mapper.toEntity(createTaskDTO)))
 
     fun updateTask(id: Long, updatedTask: CreateTaskDTO): TaskDTO? {
-        val updatedOptional = taskRepository.findById(id).map {
+         val updatedOptional = taskRepository.findById(id).map {
             it.title = updatedTask.title
             it.description = updatedTask.description
             it.completed = updatedTask.completed
