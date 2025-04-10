@@ -18,8 +18,10 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping("/{id}")
     fun getTaskById(@PathVariable id: Long): ResponseEntity<TaskDTO> {
         val task = taskService.getTaskById(id)
-        return if (task != null) ResponseEntity.ok(task)
-        else ResponseEntity.notFound().build()
+        return when {
+            task != null -> ResponseEntity.ok(task)
+            else -> ResponseEntity.notFound().build()
+        }
     }
 
     @PostMapping
